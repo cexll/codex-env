@@ -194,15 +194,15 @@ Environments stored in `~/.codex-env/config.json`:
 ### Environment Variables
 
 **Additional Environment Variables Support:**
-CCE supports configuring additional environment variables for each environment. These variables are automatically set when launching Codex with the selected environment.
+CDE supports configuring additional environment variables for each environment. These variables are automatically set when launching Codex with the selected environment.
 
 **Common Use Cases:**
 - `OPENAI_TIMEOUT`: Set custom timeout values for API requests (e.g., `30s`)
 - Any custom environment variables required by your Codex setup
 
 **Model Validation Configuration:**
-- `CCE_MODEL_PATTERNS`: Comma-separated custom regex patterns for model validation
-- `CCE_MODEL_STRICT`: Set to "false" for permissive mode
+- `CDE_MODEL_PATTERNS`: Comma-separated custom regex patterns for model validation
+- `CDE_MODEL_STRICT`: Set to "false" for permissive mode
 
 ## 🏗️ Architecture
 
@@ -282,7 +282,7 @@ go tool cover -html=coverage.out
 
 ```bash
 # Development build
-go build -o cce .
+go build -o cde .
 
 # Run comprehensive test suite
 make test                # or: go test -v ./...
@@ -329,7 +329,7 @@ This enhanced version maintains full backward compatibility. Existing configurat
 
 ### New Features Available
 - **Additional Environment Variables**: Configure custom environment variables like `ANTHROPIC_SMALL_FAST_MODEL`
-- **Flag Passthrough**: Start using `cce -r`, `cce --help`, etc.
+- **Flag Passthrough**: Start using `cde -r`, `cde --help`, etc.
 - **Enhanced UI**: Enjoy responsive design and clean navigation
 - **Universal Compatibility**: Works consistently across all terminal types
 - **Enhanced Security**: Benefit from command injection prevention
