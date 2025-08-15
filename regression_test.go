@@ -321,22 +321,22 @@ func TestRegressionScenarios(t *testing.T) {
 		foundBaseURL := false
 		foundAPIKey := false
 
-        for _, envVar := range envVars {
-            if strings.HasPrefix(envVar, "OPENAI_BASE_URL=") {
-                foundBaseURL = true
-                expectedValue := "OPENAI_BASE_URL=" + env.URL
-                if envVar != expectedValue {
-                    t.Errorf("Incorrect OPENAI_BASE_URL: got %s, want %s", envVar, expectedValue)
-                }
-            }
-            if strings.HasPrefix(envVar, "OPENAI_API_KEY=") {
-                foundAPIKey = true
-                expectedValue := "OPENAI_API_KEY=" + env.APIKey
-                if envVar != expectedValue {
-                    t.Errorf("Incorrect OPENAI_API_KEY: got %s, want %s", envVar, expectedValue)
-                }
-            }
-        }
+		for _, envVar := range envVars {
+			if strings.HasPrefix(envVar, "OPENAI_BASE_URL=") {
+				foundBaseURL = true
+				expectedValue := "OPENAI_BASE_URL=" + env.URL
+				if envVar != expectedValue {
+					t.Errorf("Incorrect OPENAI_BASE_URL: got %s, want %s", envVar, expectedValue)
+				}
+			}
+			if strings.HasPrefix(envVar, "OPENAI_API_KEY=") {
+				foundAPIKey = true
+				expectedValue := "OPENAI_API_KEY=" + env.APIKey
+				if envVar != expectedValue {
+					t.Errorf("Incorrect OPENAI_API_KEY: got %s, want %s", envVar, expectedValue)
+				}
+			}
+		}
 
 		if !foundBaseURL {
 			t.Error("OPENAI_BASE_URL not found in environment variables")
