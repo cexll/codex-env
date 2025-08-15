@@ -1,0 +1,44 @@
+
+# Binaries and executables
+cce
+cde
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test coverage files
+coverage.out
+coverage.html
+*.prof
+
+# Go build cache
+.cache/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+.gocache/
