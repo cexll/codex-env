@@ -237,18 +237,18 @@ func TestEnhancementStability(t *testing.T) {
 // TestEnhancementIntegrationConsistency tests integration consistency
 func TestEnhancementIntegrationConsistency(t *testing.T) {
 	t.Run("environment with model integration", func(t *testing.T) {
-		env := Environment{
-			Name:   "integration-test",
-			URL:    "https://api.openai.com/v1",
-			APIKey: "sk-integration-123456789",
-			Model:  "gpt-5",
-		}
+    env := Environment{
+        Name:   "integration-test",
+        URL:    "https://api.openai.com/v1",
+        APIKey: "sk-integration-123456789",
+        Model:  "gpt-5",
+    }
 
-		// Should validate completely
-		err := validateEnvironment(env)
-		if err != nil {
-			t.Errorf("Complete environment should validate: %v", err)
-		}
+    // Should validate completely (permissive API key + model)
+    err := validateEnvironment(env)
+    if err != nil {
+        t.Errorf("Complete environment should validate: %v", err)
+    }
 
 		// Should prepare environment variables correctly
 		envVars, err := prepareEnvironment(env)
@@ -256,26 +256,26 @@ func TestEnhancementIntegrationConsistency(t *testing.T) {
 			t.Errorf("Environment preparation should succeed: %v", err)
 		}
 
-		// Should include model variable
-		hasModel := false
-		for _, envVar := range envVars {
-			if envVar == "ANTHROPIC_MODEL="+env.Model {
-				hasModel = true
-				break
-			}
-		}
+        // Should include model variable (OPENAI_MODEL)
+        hasModel := false
+        for _, envVar := range envVars {
+            if envVar == "OPENAI_MODEL="+env.Model {
+                hasModel = true
+                break
+            }
+        }
 
-		if !hasModel {
-			t.Error("Environment variables should include model")
-		}
+        if !hasModel {
+            t.Error("Environment variables should include model")
+        }
 	})
 
 	t.Run("fallback chain consistency", func(t *testing.T) {
 		// Create test config
 		config := Config{
-			Environments: []Environment{
-				{Name: "test1", URL: "https://api.anthropic.com", APIKey: "sk-ant-test123456789"},
-			},
+            Environments: []Environment{
+                {Name: "test1", URL: "https://api.openai.com/v1", APIKey: "sk-test123456789"},
+            },
 		}
 
 		// Single environment should always return that environment

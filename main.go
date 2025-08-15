@@ -271,13 +271,13 @@ func validateAPIKey(apiKey string) error {
 
 // validateModel allows any model name (no validation)
 func validateModel(model string) error {
-	if model == "" {
-		return nil
-	}
-	// Basic injection/path traversal protections
-	if strings.Contains(model, "$(") || strings.Contains(model, "`") || strings.Contains(model, ";") || strings.Contains(model, "../") {
-		return fmt.Errorf("model contains disallowed characters")
-	}
+    if model == "" {
+        return nil
+    }
+    // Basic injection/path traversal protections
+    if strings.Contains(model, "$(") || strings.Contains(model, "`") || strings.Contains(model, ";") || strings.Contains(model, "../") || strings.Contains(model, "\\x") {
+        return fmt.Errorf("model contains disallowed characters")
+    }
 	// Reject control characters
 	for _, r := range model {
 		if r < 32 || r == 127 {
@@ -293,14 +293,14 @@ func validateModel(model string) error {
 
 // validateModelAdaptive performs adaptive model validation with graceful degradation (relaxed for Codex)
 func (mv *modelValidator) validateModelAdaptive(model string) error {
-	if model == "" {
-		return nil // Optional field
-	}
+    if model == "" {
+        return nil // Optional field
+    }
 
-	// For Codex, do not enforce naming patterns; only basic safety
-	if strings.Contains(model, "$(") || strings.Contains(model, "`") || strings.Contains(model, ";") || strings.Contains(model, "../") {
-		return fmt.Errorf("model contains disallowed characters")
-	}
+    // For Codex, do not enforce naming patterns; only basic safety
+    if strings.Contains(model, "$(") || strings.Contains(model, "`") || strings.Contains(model, ";") || strings.Contains(model, "../") || strings.Contains(model, "\\x") {
+        return fmt.Errorf("model contains disallowed characters")
+    }
 	for _, r := range model {
 		if r < 32 || r == 127 {
 			return fmt.Errorf("model contains invalid characters")
