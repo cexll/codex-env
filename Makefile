@@ -6,12 +6,23 @@
 GOCACHE_DIR ?= $(CURDIR)/.gocache
 GOENV = GOCACHE=$(GOCACHE_DIR)
 
+# Version information
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
+COMMIT ?= $(shell git rev-parse HEAD 2>/dev/null || echo "none")
+DATE ?= $(shell date -u '+%Y-%m-%d_%H:%M:%S')
+LDFLAGS := -ldflags "-X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.date=$(DATE)"
+
 # Default target
 all: build
 
 # Build the binary
 build:
-	$(GOENV) go build -o cde .
+	$(GOENV) go build $(LDFLAGS) -o cde .
+
+# Build with version info (for releases)
+build-release:
+	$(GOENV) go build $(LDFLAGS) -o cde .
+	@echo "Built cde version $(VERSION)"
 
 # Run tests
 test:

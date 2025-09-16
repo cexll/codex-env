@@ -26,7 +26,21 @@ A production-ready Go CLI tool that manages multiple Codex/OpenAI environment co
 
 ## 📦 Installation
 
-### Build from Source
+### Method 1: Go Install (Recommended)
+
+```bash
+# Install the latest version directly
+go install github.com/cexll/codex-env@latest
+
+# The binary will be installed to $GOPATH/bin/codex-env
+# Add to PATH if not already done:
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# Verify installation
+codex-env --version
+```
+
+### Method 2: Build from Source
 
 ```bash
 git clone https://github.com/cexll/codex-env.git

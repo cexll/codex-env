@@ -8,6 +8,13 @@ import (
 	"strings"
 )
 
+// Version information (set by ldflags during build)
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+)
+
 // modelValidator manages configurable model validation patterns
 type modelValidator struct {
 	patterns     []string
@@ -410,6 +417,12 @@ func validatePassthroughArgs(args []string) error {
 }
 
 func main() {
+	// Check for version flag first
+	if len(os.Args) > 1 && (os.Args[1] == "--version" || os.Args[1] == "-v") {
+		fmt.Printf("cde version %s (commit: %s, built: %s)\n", version, commit, date)
+		os.Exit(0)
+	}
+
 	if err := handleCommand(os.Args[1:]); err != nil {
 		// Enhanced error categorization with clear messaging
 		errorType := categorizeError(err)
